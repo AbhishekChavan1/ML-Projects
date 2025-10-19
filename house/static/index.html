@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Prediction - California Housing</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏠 House Price Prediction</h1>
+            <p class="subtitle">Predict California house prices using Machine Learning</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'prediction')">Prediction</button>
+            <button class="tab-button" onclick="openTab(event, 'model-info')">Model Info</button>
+            <button class="tab-button" onclick="openTab(event, 'samples')">Sample Data</button>
+            <button class="tab-button" onclick="openTab(event, 'features')">Feature Importance</button>
+        </div>
+
+        <!-- Prediction Tab -->
+        <div id="prediction" class="tab-content active">
+            <div class="card">
+                <h2>Enter House Features</h2>
+                <form id="predictionForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="medInc">
+                                <span class="label-text">Median Income</span>
+                                <span class="label-hint">Block group median income (in $10,000s)</span>
+                            </label>
+                            <input type="number" id="medInc" step="0.1" min="0" max="15" value="3.5" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="houseAge">
+                                <span class="label-text">House Age</span>
+                                <span class="label-hint">Median house age in years</span>
+                            </label>
+                            <input type="number" id="houseAge" step="1" min="0" max="100" value="25" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="aveRooms">
+                                <span class="label-text">Average Rooms</span>
+                                <span class="label-hint">Average number of rooms per household</span>
+                            </label>
+                            <input type="number" id="aveRooms" step="0.1" min="1" max="20" value="5.5" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="aveBedrms">
+                                <span class="label-text">Average Bedrooms</span>
+                                <span class="label-hint">Average number of bedrooms per household</span>
+                            </label>
+                            <input type="number" id="aveBedrms" step="0.1" min="0" max="10" value="1.2" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="population">
+                                <span class="label-text">Population</span>
+                                <span class="label-hint">Block group population</span>
+                            </label>
+                            <input type="number" id="population" step="1" min="0" max="10000" value="1500" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="aveOccup">
+                                <span class="label-text">Average Occupancy</span>
+                                <span class="label-hint">Average household members</span>
+                            </label>
+                            <input type="number" id="aveOccup" step="0.1" min="0" max="20" value="3.0" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="latitude">
+                                <span class="label-text">Latitude</span>
+                                <span class="label-hint">Block group latitude (32-42)</span>
+                            </label>
+                            <input type="number" id="latitude" step="0.1" min="32" max="42" value="37.5" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="longitude">
+                                <span class="label-text">Longitude</span>
+                                <span class="label-hint">Block group longitude (-125 to -114)</span>
+                            </label>
+                            <input type="number" id="longitude" step="0.1" min="-125" max="-114" value="-122.0" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Predict Price</button>
+                    <button type="button" class="btn btn-secondary" onclick="fillRandomData()">Random Example</button>
+                </form>
+
+                <div id="predictionResult" class="result-box" style="display: none;">
+                    <h3>Prediction Result</h3>
+                    <div class="prediction-price">
+                        <span class="price-label">Predicted Price:</span>
+                        <span class="price-value" id="priceValue">$0</span>
+                    </div>
+                    <p class="price-note">Price in hundreds of thousands of dollars</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Model Info Tab -->
+        <div id="model-info" class="tab-content">
+            <div class="card">
+                <h2>Model Information</h2>
+                <div id="modelInfoContent">
+                    <p class="loading">Loading model information...</p>
+                </div>
+                <button class="btn btn-primary" onclick="retrainModel()">Retrain Model</button>
+            </div>
+        </div>
+
+        <!-- Sample Data Tab -->
+        <div id="samples" class="tab-content">
+            <div class="card">
+                <h2>Sample Predictions</h2>
+                <button class="btn btn-secondary" onclick="loadSampleData()">Load New Samples</button>
+                <div id="sampleDataContent">
+                    <p class="loading">Click the button to load sample data...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature Importance Tab -->
+        <div id="features" class="tab-content">
+            <div class="card">
+                <h2>Feature Importance</h2>
+                <div id="featureImportanceContent">
+                    <p class="loading">Loading feature importance...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Built with FastAPI & scikit-learn | California Housing Dataset</p>
+    </footer>
+
+    <div id="notification" class="notification"></div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
